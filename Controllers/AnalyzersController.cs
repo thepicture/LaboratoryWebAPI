@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using LaboratoryWebAPI.Models;
 using LaboratoryWebAPI.Models.Entities;
+using LaboratoryWebAPI.Models.ResponseModels;
 
 namespace LaboratoryWebAPI.Controllers
 {
@@ -17,10 +18,25 @@ namespace LaboratoryWebAPI.Controllers
     {
         private readonly LaboratoryDatabaseEntities db = new LaboratoryDatabaseEntities();
 
-        // GET: api/Analyzers
-        public IQueryable<Analyzer> GetAnalyzer()
+        // GET: api/analyzer/Biorad
+        [ResponseType(typeof(List<ResponseOrderResult>))]
+        [Route("api/analyzer/{name}")]
+        public IHttpActionResult GetAnalyzer(string name)
         {
-            return db.Analyzer;
+            try
+            {
+
+                return Ok(new ResponseOrderResult(db.AppliedService
+                    .Where(a => a.Analyzer.Name.StartsWith(name))
+                    .ToList()
+                    .Last()));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Bad analyzer name or "
+                    + ex.Message[0].ToString().ToLower()
+                    + ex.Message.Substring(1));
+            }
         }
 
         // GET: api/Analyzers/5
@@ -71,8 +87,7 @@ namespace LaboratoryWebAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Analyzers
-        [ResponseType(typeof(Analyzer))]
+        // POST: api/analyzer/Biorad
         [Route("api/analyzer/{name}")]
         public IHttpActionResult PostAnalyzer(RequestAnalyzer requestAnalyzer, string name)
         {
