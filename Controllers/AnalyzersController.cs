@@ -73,7 +73,8 @@ namespace LaboratoryWebAPI.Controllers
 
         // POST: api/Analyzers
         [ResponseType(typeof(Analyzer))]
-        public IHttpActionResult PostAnalyzer(RequestAnalyzer requestAnalyzer)
+        [Route("api/analyzer/{name}")]
+        public IHttpActionResult PostAnalyzer(RequestAnalyzer requestAnalyzer, string name)
         {
             if (requestAnalyzer.Services.Count() == 0)
             {
@@ -106,7 +107,7 @@ namespace LaboratoryWebAPI.Controllers
             {
                 AppliedService appliedService = new AppliedService
                 {
-                    Analyzer = db.AppliedService.ToList().First(s => s.FinishedDateTime < DateTime.Now).Analyzer,
+                    Analyzer = db.Analyzer.ToList().First(a => a.Name.Equals(name)),
                     FinishedDateTime = DateTime.Now + TimeSpan.FromSeconds(30),
                     IsAccepted = false,
                     PatientId = requestAnalyzer.Patient,
