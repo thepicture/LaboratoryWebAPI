@@ -2,7 +2,7 @@
 {
     public class RequestAnalyzer
     {
-        public int PatientId { get; set; }
+        public int Patient { get; set; }
         public RequestService[] Services { get; set; }
     }
 }

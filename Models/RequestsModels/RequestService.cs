@@ -2,7 +2,6 @@
 {
     public class RequestService
     {
-        public int Code { get; set; }
-        public string Result { get; set; }
+        public int ServiceCode { get; set; }
     }
 }
