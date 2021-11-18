@@ -224,6 +224,7 @@
     </Compile>
     <Compile Include="Models\RequestsModels\RequestAnalyzer.cs" />
     <Compile Include="Models\RequestsModels\RequestService.cs" />
+    <Compile Include="Models\ResponseModels\OrderStatus.cs" />
     <Compile Include="Models\ResponseModels\ResponseOrderResult.cs" />
     <Compile Include="Models\ResponseModels\ResponseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -239,8 +240,8 @@
     <Content Include="Global.asax" />
     <Content Include="Models\Entities\LaboratoryBaseModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>LaboratoryBaseModel.Context.cs</LastGenOutput>
       <DependentUpon>LaboratoryBaseModel.edmx</DependentUpon>
+      <LastGenOutput>LaboratoryBaseModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Entities\LaboratoryBaseModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

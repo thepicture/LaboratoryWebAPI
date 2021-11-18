@@ -1,20 +1,22 @@
 ﻿using LaboratoryWebAPI.Models.Entities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LaboratoryWebAPI.Models.ResponseModels
 {
     public class ResponseOrderResult
     {
-        public ResponseOrderResult(AppliedService appliedService)
+        public ResponseOrderResult(List<AppliedService> appliedServicesList)
         {
-            Patient = appliedService.PatientId;
-            Services = new ResponseService[]
+            Patient = appliedServicesList.First().PatientId;
+            Services = appliedServicesList.Select(s =>
             {
-                new ResponseService
+                return new ResponseService
                 {
-                    Code = appliedService.Service.Id,
-                    Result = appliedService.Result.ToString()
-                }
-            };
+                    Code = s.Id,
+                    Result = s.Result.ToString()
+                };
+            }).ToArray();
         }
 
         public int Patient { get; set; }

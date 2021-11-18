@@ -17,6 +17,7 @@ namespace LaboratoryWebAPI.Controllers
     public class AnalyzersController : ApiController
     {
         private readonly LaboratoryDatabaseEntities db = new LaboratoryDatabaseEntities();
+        private static int _currentPatientId;
 
         // GET: api/analyzer/Biorad
         [ResponseType(typeof(List<ResponseOrderResult>))]
@@ -25,17 +26,38 @@ namespace LaboratoryWebAPI.Controllers
         {
             try
             {
-
-                return Ok(new ResponseOrderResult(db.AppliedService
-                    .Where(a => a.Analyzer.Name.StartsWith(name))
-                    .ToList()
-                    .Last()));
+                Order currentResearchingOrder = db.Order
+                    .Where(s => s.AppliedService.All(service => service.Analyzer.Name.Equals(name))
+                                        && s.PatientId == _currentPatientId).ToList().Last();
+                bool areAnyNotAcceptedServices = currentResearchingOrder
+                        .AppliedService
+                        .Any(s => !s.IsAccepted);
+                if (areAnyNotAcceptedServices)
+                {
+                    return Ok(new OrderStatus
+                    {
+                        Progress = Convert.ToInt32(Math.Round(currentResearchingOrder
+                        .AppliedService
+                        .Where(s => s.IsAccepted).Count() * 1.0 / currentResearchingOrder.AppliedService.Count() * 100))
+                    });
+                }
+                return Ok
+                    (
+                        new ResponseOrderResult
+                        (
+                            db
+                            .Order
+                            .ToList()
+                            .Reverse<Order>()
+                            .First(o => o.PatientId == _currentPatientId)
+                            .AppliedService
+                            .ToList()
+                        )
+                    );
             }
             catch (Exception ex)
             {
-                return BadRequest("Bad analyzer name or "
-                    + ex.Message[0].ToString().ToLower()
-                    + ex.Message.Substring(1));
+                return BadRequest(ex.Message);
             }
         }
 
@@ -98,7 +120,7 @@ namespace LaboratoryWebAPI.Controllers
             else
             {
                 if (requestAnalyzer.Services
-                    .Any(analyzerService => db.Service
+                    .Any(analyzerService => db.AppliedService
                     .FirstOrDefault(service => service.Id == analyzerService.ServiceCode)
                     == null))
                 {
@@ -120,23 +142,19 @@ namespace LaboratoryWebAPI.Controllers
 
             foreach (RequestService service in requestAnalyzer.Services)
             {
-                AppliedService appliedService = new AppliedService
-                {
-                    Analyzer = db.Analyzer.ToList().First(a => a.Name.Equals(name)),
-                    FinishedDateTime = DateTime.Now + TimeSpan.FromSeconds(30),
-                    IsAccepted = false,
-                    PatientId = requestAnalyzer.Patient,
-                    ServiceId = service.ServiceCode,
-                    StatusOfAppliedService = db.StatusOfAppliedService.ToList().First(s => s.Name.StartsWith("Отправлена")),
-                    Result = 0,
-                    User = db.User.ToList().Last()
-                };
-                _ = db.AppliedService.Add(appliedService);
+                AppliedService appliedService = db.AppliedService
+                    .ToList()
+                    .First(s => s.Id == service.ServiceCode);
+                appliedService.StatusOfAppliedService = db.StatusOfAppliedService
+                .ToList()
+                .First(s => s.Name.StartsWith("Отправлена"));
+                appliedService.AnalyzerId = db.Analyzer.ToList().First(a => a.Name.Equals(name)).Id;
             }
 
             try
             {
                 db.SaveChanges();
+                _currentPatientId = requestAnalyzer.Patient;
             }
             catch (DbUpdateException ex)
             {
