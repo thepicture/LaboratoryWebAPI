@@ -1,7 +1,8 @@
 ﻿using LaboratoryWebAPI.Models.Entities;
+using LaboratoryWebAPI.Models.RequestModels;
 using System;
 
-namespace LaboratoryWebAPI.Models.ResponseModels
+namespace LaboratoryWebAPI.Models.RequestResponseModels
 {
     public class RequestResponsePatient
     {

@@ -1,4 +1,4 @@
-﻿namespace LaboratoryWebAPI.Models.ResponseModels
+﻿namespace LaboratoryWebAPI.Models.RequestModels
 {
     public class RequestLoginPatient
     {

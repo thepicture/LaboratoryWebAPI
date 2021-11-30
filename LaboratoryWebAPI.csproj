@@ -166,6 +166,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LaboratoryNewsController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -227,14 +228,15 @@
     <Compile Include="Models\Entities\User.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\RequestsModels\RequestAnalyzer.cs" />
-    <Compile Include="Models\RequestsModels\RequestService.cs" />
+    <Compile Include="Models\RequestModels\RequestAnalyzer.cs" />
+    <Compile Include="Models\RequestModels\RequestService.cs" />
     <Compile Include="Models\ResponseModels\OrderStatus.cs" />
-    <Compile Include="Models\ResponseModels\RequestLoginPatient.cs" />
-    <Compile Include="Models\ResponseModels\RequestResponsePatient.cs" />
+    <Compile Include="Models\RequestModels\RequestLoginPatient.cs" />
+    <Compile Include="Models\RequestResponseModels\RequestResponsePatient.cs" />
     <Compile Include="Models\ResponseModels\ResponseNews.cs" />
     <Compile Include="Models\ResponseModels\ResponseOrderResult.cs" />
     <Compile Include="Models\ResponseModels\ResponseService.cs" />
+    <Compile Include="Models\ResponseModels\ResponseServiceResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

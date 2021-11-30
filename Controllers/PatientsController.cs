@@ -1,9 +1,7 @@
 ﻿using LaboratoryWebAPI.Models.Entities;
-using LaboratoryWebAPI.Models.ResponseModels;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+using LaboratoryWebAPI.Models.RequestModels;
+using LaboratoryWebAPI.Models.RequestResponseModels;
 using System.Linq;
-using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
 

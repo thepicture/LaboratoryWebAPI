@@ -11,7 +11,7 @@ namespace LaboratoryWebAPI.Models.ResponseModels
             Patient = appliedServicesList.First().PatientId;
             Services = appliedServicesList.Select(s =>
             {
-                return new ResponseService
+                return new ResponseServiceResult
                 {
                     Code = s.Id,
                     Result = s.Result.ToString()
@@ -20,6 +20,6 @@ namespace LaboratoryWebAPI.Models.ResponseModels
         }
 
         public int Patient { get; set; }
-        public ResponseService[] Services { get; set; }
+        public ResponseServiceResult[] Services { get; set; }
     }
 }
