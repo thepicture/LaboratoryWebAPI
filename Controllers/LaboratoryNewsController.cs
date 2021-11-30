@@ -17,14 +17,16 @@ namespace LaboratoryWebAPI.Controllers
     {
         private LaboratoryDatabaseEntities db = new LaboratoryDatabaseEntities();
 
-        // GET: api/LaboratoryNews
+        // GET: api/news
         [Route("api/news/")]
+        [ResponseType(typeof(List<ResponseNews>))]
         public IHttpActionResult GetLaboratoryNews()
         {
             return Ok(db.LaboratoryNews.ToList().ConvertAll(l => new ResponseNews(l)));
         }
 
-        [ResponseType(typeof(LaboratoryNews))]
+        // GET : api/news/1
+        [ResponseType(typeof(ResponseNews))]
         [Route("api/news/{id}/")]
         public IHttpActionResult GetLaboratoryNews(int id)
         {
@@ -37,72 +39,6 @@ namespace LaboratoryWebAPI.Controllers
             return Ok(new ResponseNews(laboratoryNews));
         }
 
-        // PUT: api/LaboratoryNews/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutLaboratoryNews(int id, LaboratoryNews laboratoryNews)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != laboratoryNews.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(laboratoryNews).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LaboratoryNewsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/LaboratoryNews
-        [ResponseType(typeof(LaboratoryNews))]
-        public IHttpActionResult PostLaboratoryNews(LaboratoryNews laboratoryNews)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.LaboratoryNews.Add(laboratoryNews);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = laboratoryNews.Id }, laboratoryNews);
-        }
-
-        // DELETE: api/LaboratoryNews/5
-        [ResponseType(typeof(LaboratoryNews))]
-        public IHttpActionResult DeleteLaboratoryNews(int id)
-        {
-            LaboratoryNews laboratoryNews = db.LaboratoryNews.Find(id);
-            if (laboratoryNews == null)
-            {
-                return NotFound();
-            }
-
-            db.LaboratoryNews.Remove(laboratoryNews);
-            db.SaveChanges();
-
-            return Ok(laboratoryNews);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -110,11 +46,6 @@ namespace LaboratoryWebAPI.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool LaboratoryNewsExists(int id)
-        {
-            return db.LaboratoryNews.Count(e => e.Id == id) > 0;
         }
     }
 }

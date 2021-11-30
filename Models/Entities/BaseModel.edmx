@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="LaboratoryDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LaboratoryDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Analyzer">
           <Key>
             <PropertyRef Name="Id" />
@@ -97,8 +97,8 @@
           <Property Name="PassportNumber" Type="nvarchar" MaxLength="6" Nullable="false" />
           <Property Name="Phone" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="TypeOfInsurancePolicyId" Type="int" Nullable="false" />
-          <Property Name="InsuranceCompanyId" Type="int" Nullable="false" />
+          <Property Name="TypeOfInsurancePolicyId" Type="int" />
+          <Property Name="InsuranceCompanyId" Type="int" />
           <Property Name="InsurancePolicyNumber" Type="nchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Service">
@@ -280,7 +280,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Patient_InsuranceCompany">
-          <End Role="InsuranceCompany" Type="Self.InsuranceCompany" Multiplicity="1" />
+          <End Role="InsuranceCompany" Type="Self.InsuranceCompany" Multiplicity="0..1" />
           <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="InsuranceCompany">
@@ -292,7 +292,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Patient_TypeOfInsurancePolicy">
-          <End Role="TypeOfInsurancePolicy" Type="Self.TypeOfInsurancePolicy" Multiplicity="1" />
+          <End Role="TypeOfInsurancePolicy" Type="Self.TypeOfInsurancePolicy" Multiplicity="0..1" />
           <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TypeOfInsurancePolicy">
@@ -449,7 +449,8 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LaboratoryDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -513,6 +514,18 @@
           <Property Name="BIK" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Patient" Relationship="Self.FK_Patient_InsuranceCompany" FromRole="InsuranceCompany" ToRole="Patient" />
         </EntityType>
+        <EntityType Name="LaboratoryNews">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Header" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImagePreview" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_LaboratoryNews_User" FromRole="LaboratoryNews" ToRole="User" />
+        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="Id" />
@@ -540,8 +553,8 @@
           <Property Name="PassportNumber" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TypeOfInsurancePolicyId" Type="Int32" Nullable="false" />
-          <Property Name="InsuranceCompanyId" Type="Int32" Nullable="false" />
+          <Property Name="TypeOfInsurancePolicyId" Type="Int32" />
+          <Property Name="InsuranceCompanyId" Type="Int32" />
           <Property Name="InsurancePolicyNumber" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="AppliedService" Relationship="Self.FK_AppliedService_Patient" FromRole="Patient" ToRole="AppliedService" />
           <NavigationProperty Name="InsuranceCompany" Relationship="Self.FK_Patient_InsuranceCompany" FromRole="Patient" ToRole="InsuranceCompany" />
@@ -605,9 +618,9 @@
           <Property Name="UserImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="AppliedService" Relationship="Self.FK_AppliedService_User" FromRole="User" ToRole="AppliedService" />
           <NavigationProperty Name="HistoryOfLogin" Relationship="Self.FK_HistoryOfLogin_User" FromRole="User" ToRole="HistoryOfLogin" />
+          <NavigationProperty Name="LaboratoryNews" Relationship="Self.FK_LaboratoryNews_User" FromRole="User" ToRole="LaboratoryNews" />
           <NavigationProperty Name="TypeOfUser" Relationship="Self.FK_User_TypeOfUser" FromRole="User" ToRole="TypeOfUser" />
           <NavigationProperty Name="Service" Relationship="Self.ServiceOfUser" FromRole="User" ToRole="Service" />
-          <NavigationProperty Name="LaboratoryNews" Relationship="LaboratoryDatabaseModel.FK_LaboratoryNews_User" FromRole="User" ToRole="LaboratoryNews" />
         </EntityType>
         <Association Name="FK_AppliedService_Analyzer">
           <End Role="Analyzer" Type="Self.Analyzer" Multiplicity="1" />
@@ -694,7 +707,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Patient_InsuranceCompany">
-          <End Role="InsuranceCompany" Type="Self.InsuranceCompany" Multiplicity="1" />
+          <End Role="InsuranceCompany" Type="Self.InsuranceCompany" Multiplicity="0..1" />
           <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="InsuranceCompany">
@@ -702,6 +715,18 @@
             </Principal>
             <Dependent Role="Patient">
               <PropertyRef Name="InsuranceCompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaboratoryNews_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="LaboratoryNews" Type="Self.LaboratoryNews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaboratoryNews">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -730,7 +755,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Patient_TypeOfInsurancePolicy">
-          <End Role="TypeOfInsurancePolicy" Type="Self.TypeOfInsurancePolicy" Multiplicity="1" />
+          <End Role="TypeOfInsurancePolicy" Type="Self.TypeOfInsurancePolicy" Multiplicity="0..1" />
           <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TypeOfInsurancePolicy">
@@ -767,6 +792,7 @@
           <EntitySet Name="BarcodeOfPatient" EntityType="Self.BarcodeOfPatient" />
           <EntitySet Name="HistoryOfLogin" EntityType="Self.HistoryOfLogin" />
           <EntitySet Name="InsuranceCompany" EntityType="Self.InsuranceCompany" />
+          <EntitySet Name="LaboratoryNews" EntityType="Self.LaboratoryNews" />
           <EntitySet Name="Order" EntityType="Self.Order" />
           <EntitySet Name="Patient" EntityType="Self.Patient" />
           <EntitySet Name="Service" EntityType="Self.Service" />
@@ -807,6 +833,10 @@
             <End Role="InsuranceCompany" EntitySet="InsuranceCompany" />
             <End Role="Patient" EntitySet="Patient" />
           </AssociationSet>
+          <AssociationSet Name="FK_LaboratoryNews_User" Association="Self.FK_LaboratoryNews_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="LaboratoryNews" EntitySet="LaboratoryNews" />
+          </AssociationSet>
           <AssociationSet Name="FK_Order_Patient" Association="Self.FK_Order_Patient">
             <End Role="Patient" EntitySet="Patient" />
             <End Role="Order" EntitySet="Order" />
@@ -831,36 +861,7 @@
             <End Role="Service" EntitySet="Service" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <EntitySet Name="LaboratoryNews" EntityType="LaboratoryDatabaseModel.LaboratoryNews" />
-          <AssociationSet Name="FK_LaboratoryNews_User" Association="LaboratoryDatabaseModel.FK_LaboratoryNews_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="LaboratoryNews" EntitySet="LaboratoryNews" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="LaboratoryNews">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Header" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ImagePreview" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="User" Relationship="LaboratoryDatabaseModel.FK_LaboratoryNews_User" FromRole="LaboratoryNews" ToRole="User" />
-        </EntityType>
-        <Association Name="FK_LaboratoryNews_User">
-          <End Type="LaboratoryDatabaseModel.User" Role="User" Multiplicity="1" />
-          <End Type="LaboratoryDatabaseModel.LaboratoryNews" Role="LaboratoryNews" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="LaboratoryNews">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -919,6 +920,18 @@
                 <ScalarProperty Name="INN" ColumnName="INN" />
                 <ScalarProperty Name="CheckingAccount" ColumnName="CheckingAccount" />
                 <ScalarProperty Name="BIK" ColumnName="BIK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LaboratoryNews">
+            <EntityTypeMapping TypeName="LaboratoryDatabaseModel.LaboratoryNews">
+              <MappingFragment StoreEntitySet="LaboratoryNews">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Header" ColumnName="Header" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ImagePreview" ColumnName="ImagePreview" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1023,18 +1036,6 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="LaboratoryNews">
-            <EntityTypeMapping TypeName="LaboratoryDatabaseModel.LaboratoryNews">
-              <MappingFragment StoreEntitySet="LaboratoryNews">
-                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ImagePreview" ColumnName="ImagePreview" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="Header" ColumnName="Header" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -4,12 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2048d3070c4443498367bf9d03bc1452" Name="Diagram1">
+      <Diagram DiagramId="cec08bf8312249d5941a7b2468364c9b" Name="Diagram1">
         <EntityTypeShape EntityType="LaboratoryDatabaseModel.Analyzer" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LaboratoryDatabaseModel.AppliedService" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="LaboratoryDatabaseModel.BarcodeOfPatient" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LaboratoryDatabaseModel.HistoryOfLogin" Width="1.5" PointX="8.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LaboratoryDatabaseModel.HistoryOfLogin" Width="1.5" PointX="8.25" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="LaboratoryDatabaseModel.InsuranceCompany" Width="1.5" PointX="1.5" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LaboratoryDatabaseModel.LaboratoryNews" Width="1.5" PointX="8.25" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LaboratoryDatabaseModel.Order" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="LaboratoryDatabaseModel.Patient" Width="1.5" PointX="0.75" PointY="11.625" IsExpanded="true" />
         <EntityTypeShape EntityType="LaboratoryDatabaseModel.Service" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
@@ -17,7 +18,7 @@
         <EntityTypeShape EntityType="LaboratoryDatabaseModel.StatusOfOrder" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
         <EntityTypeShape EntityType="LaboratoryDatabaseModel.TypeOfInsurancePolicy" Width="1.5" PointX="1.5" PointY="20.375" IsExpanded="true" />
         <EntityTypeShape EntityType="LaboratoryDatabaseModel.TypeOfUser" Width="1.5" PointX="3.75" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="LaboratoryDatabaseModel.User" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LaboratoryDatabaseModel.User" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
         <AssociationConnector Association="LaboratoryDatabaseModel.FK_AppliedService_Analyzer" ManuallyRouted="false" />
         <AssociationConnector Association="LaboratoryDatabaseModel.FK_AppliedService_Patient" ManuallyRouted="false" />
         <AssociationConnector Association="LaboratoryDatabaseModel.FK_AppliedService_Service" ManuallyRouted="false" />
@@ -26,14 +27,13 @@
         <AssociationConnector Association="LaboratoryDatabaseModel.FK_Order_BarcodeOfPatient" ManuallyRouted="false" />
         <AssociationConnector Association="LaboratoryDatabaseModel.FK_HistoryOfLogin_User" ManuallyRouted="false" />
         <AssociationConnector Association="LaboratoryDatabaseModel.FK_Patient_InsuranceCompany" ManuallyRouted="false" />
+        <AssociationConnector Association="LaboratoryDatabaseModel.FK_LaboratoryNews_User" ManuallyRouted="false" />
         <AssociationConnector Association="LaboratoryDatabaseModel.FK_Order_Patient" ManuallyRouted="false" />
         <AssociationConnector Association="LaboratoryDatabaseModel.FK_Order_StatusOfOrder" ManuallyRouted="false" />
         <AssociationConnector Association="LaboratoryDatabaseModel.FK_Patient_TypeOfInsurancePolicy" ManuallyRouted="false" />
         <AssociationConnector Association="LaboratoryDatabaseModel.FK_User_TypeOfUser" ManuallyRouted="false" />
         <AssociationConnector Association="LaboratoryDatabaseModel.AppliedServiceOfOrder" ManuallyRouted="false" />
         <AssociationConnector Association="LaboratoryDatabaseModel.ServiceOfUser" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="LaboratoryDatabaseModel.LaboratoryNews" Width="1.5" PointX="8.25" PointY="8.125" />
-        <AssociationConnector Association="LaboratoryDatabaseModel.FK_LaboratoryNews_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

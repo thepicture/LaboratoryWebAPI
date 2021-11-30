@@ -165,70 +165,73 @@
     <Compile Include="Controllers\AnalyzersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LaboratoryNewsController.cs" />
+    <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Analyzer.cs">
-      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
+      <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\AppliedService.cs">
-      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
+      <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\BarcodeOfPatient.cs">
-      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
+      <DependentUpon>BaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\BaseModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BaseModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\BaseModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\BaseModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BaseModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\HistoryOfLogin.cs">
-      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
+      <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\InsuranceCompany.cs">
-      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\LaboratoryBaseModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LaboratoryBaseModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\LaboratoryBaseModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\LaboratoryBaseModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LaboratoryBaseModel.edmx</DependentUpon>
+      <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\LaboratoryNews.cs">
-      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
+      <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Order.cs">
-      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
+      <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Patient.cs">
-      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
+      <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Service.cs">
-      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
+      <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\StatusOfAppliedService.cs">
-      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
+      <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\StatusOfOrder.cs">
-      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
+      <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\TypeOfInsurancePolicy.cs">
-      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
+      <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\TypeOfUser.cs">
-      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
+      <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\User.cs">
-      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
+      <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RequestsModels\RequestAnalyzer.cs" />
     <Compile Include="Models\RequestsModels\RequestService.cs" />
     <Compile Include="Models\ResponseModels\OrderStatus.cs" />
+    <Compile Include="Models\ResponseModels\RequestLoginPatient.cs" />
+    <Compile Include="Models\ResponseModels\RequestResponsePatient.cs" />
     <Compile Include="Models\ResponseModels\ResponseNews.cs" />
     <Compile Include="Models\ResponseModels\ResponseOrderResult.cs" />
     <Compile Include="Models\ResponseModels\ResponseService.cs" />
@@ -243,15 +246,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\Entities\LaboratoryBaseModel.Context.tt">
+    <Content Include="Models\Entities\BaseModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LaboratoryBaseModel.edmx</DependentUpon>
-      <LastGenOutput>LaboratoryBaseModel.Context.cs</LastGenOutput>
+      <DependentUpon>BaseModel.edmx</DependentUpon>
+      <LastGenOutput>BaseModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Entities\LaboratoryBaseModel.tt">
+    <Content Include="Models\Entities\BaseModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LaboratoryBaseModel.edmx</DependentUpon>
-      <LastGenOutput>LaboratoryBaseModel.cs</LastGenOutput>
+      <DependentUpon>BaseModel.edmx</DependentUpon>
+      <LastGenOutput>BaseModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -274,12 +277,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\Entities\LaboratoryBaseModel.edmx">
+    <EntityDeploy Include="Models\Entities\BaseModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LaboratoryBaseModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>BaseModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Entities\LaboratoryBaseModel.edmx.diagram">
-      <DependentUpon>LaboratoryBaseModel.edmx</DependentUpon>
+    <Content Include="Models\Entities\BaseModel.edmx.diagram">
+      <DependentUpon>BaseModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

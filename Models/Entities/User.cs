@@ -19,8 +19,8 @@ namespace LaboratoryWebAPI.Models.Entities
         {
             this.AppliedService = new HashSet<AppliedService>();
             this.HistoryOfLogin = new HashSet<HistoryOfLogin>();
-            this.Service = new HashSet<Service>();
             this.LaboratoryNews = new HashSet<LaboratoryNews>();
+            this.Service = new HashSet<Service>();
         }
     
         public int Id { get; set; }
@@ -35,10 +35,10 @@ namespace LaboratoryWebAPI.Models.Entities
         public virtual ICollection<AppliedService> AppliedService { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HistoryOfLogin> HistoryOfLogin { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LaboratoryNews> LaboratoryNews { get; set; }
         public virtual TypeOfUser TypeOfUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Service> Service { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LaboratoryNews> LaboratoryNews { get; set; }
     }
 }

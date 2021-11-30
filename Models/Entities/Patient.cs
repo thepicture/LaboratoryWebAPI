@@ -30,8 +30,8 @@ namespace LaboratoryWebAPI.Models.Entities
         public string PassportNumber { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public int TypeOfInsurancePolicyId { get; set; }
-        public int InsuranceCompanyId { get; set; }
+        public Nullable<int> TypeOfInsurancePolicyId { get; set; }
+        public Nullable<int> InsuranceCompanyId { get; set; }
         public string InsurancePolicyNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

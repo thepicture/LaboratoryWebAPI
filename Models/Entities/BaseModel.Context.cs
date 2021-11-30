@@ -30,6 +30,7 @@ namespace LaboratoryWebAPI.Models.Entities
         public virtual DbSet<BarcodeOfPatient> BarcodeOfPatient { get; set; }
         public virtual DbSet<HistoryOfLogin> HistoryOfLogin { get; set; }
         public virtual DbSet<InsuranceCompany> InsuranceCompany { get; set; }
+        public virtual DbSet<LaboratoryNews> LaboratoryNews { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Patient> Patient { get; set; }
         public virtual DbSet<Service> Service { get; set; }
@@ -38,6 +39,5 @@ namespace LaboratoryWebAPI.Models.Entities
         public virtual DbSet<TypeOfInsurancePolicy> TypeOfInsurancePolicy { get; set; }
         public virtual DbSet<TypeOfUser> TypeOfUser { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<LaboratoryNews> LaboratoryNews { get; set; }
     }
 }
