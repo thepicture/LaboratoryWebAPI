@@ -164,6 +164,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AnalyzersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LaboratoryNewsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -198,6 +199,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LaboratoryBaseModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\LaboratoryNews.cs">
+      <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entities\Order.cs">
       <DependentUpon>LaboratoryBaseModel.tt</DependentUpon>
     </Compile>
@@ -225,6 +229,7 @@
     <Compile Include="Models\RequestsModels\RequestAnalyzer.cs" />
     <Compile Include="Models\RequestsModels\RequestService.cs" />
     <Compile Include="Models\ResponseModels\OrderStatus.cs" />
+    <Compile Include="Models\ResponseModels\ResponseNews.cs" />
     <Compile Include="Models\ResponseModels\ResponseOrderResult.cs" />
     <Compile Include="Models\ResponseModels\ResponseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

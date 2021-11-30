@@ -38,5 +38,6 @@ namespace LaboratoryWebAPI.Models.Entities
         public virtual DbSet<TypeOfInsurancePolicy> TypeOfInsurancePolicy { get; set; }
         public virtual DbSet<TypeOfUser> TypeOfUser { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<LaboratoryNews> LaboratoryNews { get; set; }
     }
 }

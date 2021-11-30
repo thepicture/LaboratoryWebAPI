@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LaboratoryDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LaboratoryDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Analyzer">
           <Key>
             <PropertyRef Name="Id" />
@@ -62,6 +62,17 @@
           <Property Name="INN" Type="nvarchar" MaxLength="7" Nullable="false" />
           <Property Name="CheckingAccount" Type="nvarchar" MaxLength="9" Nullable="false" />
           <Property Name="BIK" Type="nvarchar" MaxLength="9" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LaboratoryNews">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Header" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImagePreview" Type="varbinary(max)" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -220,6 +231,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LaboratoryNews_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="LaboratoryNews" Type="Self.LaboratoryNews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaboratoryNews">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Order_BarcodeOfPatient">
           <End Role="BarcodeOfPatient" Type="Self.BarcodeOfPatient" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -347,6 +370,7 @@
           <EntitySet Name="BarcodeOfPatient" EntityType="Self.BarcodeOfPatient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HistoryOfLogin" EntityType="Self.HistoryOfLogin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InsuranceCompany" EntityType="Self.InsuranceCompany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LaboratoryNews" EntityType="Self.LaboratoryNews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
@@ -379,6 +403,10 @@
           <AssociationSet Name="FK_HistoryOfLogin_User" Association="Self.FK_HistoryOfLogin_User">
             <End Role="User" EntitySet="User" />
             <End Role="HistoryOfLogin" EntitySet="HistoryOfLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaboratoryNews_User" Association="Self.FK_LaboratoryNews_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="LaboratoryNews" EntitySet="LaboratoryNews" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_BarcodeOfPatient" Association="Self.FK_Order_BarcodeOfPatient">
             <End Role="BarcodeOfPatient" EntitySet="BarcodeOfPatient" />
@@ -421,8 +449,7 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LaboratoryDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -580,6 +607,7 @@
           <NavigationProperty Name="HistoryOfLogin" Relationship="Self.FK_HistoryOfLogin_User" FromRole="User" ToRole="HistoryOfLogin" />
           <NavigationProperty Name="TypeOfUser" Relationship="Self.FK_User_TypeOfUser" FromRole="User" ToRole="TypeOfUser" />
           <NavigationProperty Name="Service" Relationship="Self.ServiceOfUser" FromRole="User" ToRole="Service" />
+          <NavigationProperty Name="LaboratoryNews" Relationship="LaboratoryDatabaseModel.FK_LaboratoryNews_User" FromRole="User" ToRole="LaboratoryNews" />
         </EntityType>
         <Association Name="FK_AppliedService_Analyzer">
           <End Role="Analyzer" Type="Self.Analyzer" Multiplicity="1" />
@@ -803,7 +831,36 @@
             <End Role="Service" EntitySet="Service" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <EntitySet Name="LaboratoryNews" EntityType="LaboratoryDatabaseModel.LaboratoryNews" />
+          <AssociationSet Name="FK_LaboratoryNews_User" Association="LaboratoryDatabaseModel.FK_LaboratoryNews_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="LaboratoryNews" EntitySet="LaboratoryNews" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="LaboratoryNews">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Header" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImagePreview" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="LaboratoryDatabaseModel.FK_LaboratoryNews_User" FromRole="LaboratoryNews" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_LaboratoryNews_User">
+          <End Type="LaboratoryDatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="LaboratoryDatabaseModel.LaboratoryNews" Role="LaboratoryNews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaboratoryNews">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -966,6 +1023,18 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="LaboratoryNews">
+            <EntityTypeMapping TypeName="LaboratoryDatabaseModel.LaboratoryNews">
+              <MappingFragment StoreEntitySet="LaboratoryNews">
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ImagePreview" ColumnName="ImagePreview" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Header" ColumnName="Header" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

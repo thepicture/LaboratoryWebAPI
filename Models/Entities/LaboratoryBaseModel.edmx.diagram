@@ -32,6 +32,8 @@
         <AssociationConnector Association="LaboratoryDatabaseModel.FK_User_TypeOfUser" ManuallyRouted="false" />
         <AssociationConnector Association="LaboratoryDatabaseModel.AppliedServiceOfOrder" ManuallyRouted="false" />
         <AssociationConnector Association="LaboratoryDatabaseModel.ServiceOfUser" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LaboratoryDatabaseModel.LaboratoryNews" Width="1.5" PointX="8.25" PointY="8.125" />
+        <AssociationConnector Association="LaboratoryDatabaseModel.FK_LaboratoryNews_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
