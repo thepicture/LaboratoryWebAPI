@@ -22,7 +22,13 @@ namespace LaboratoryWebAPI.Controllers
         [ResponseType(typeof(List<ResponseService>))]
         public IHttpActionResult GetService()
         {
-            return Ok(db.Service.ToList().ConvertAll(s => new ResponseService(s)));
+            return Ok
+                (
+                    new
+                    {
+                        services = db.Service.ToList().ConvertAll(s => new ResponseService(s))
+                    }
+                );
         }
 
         protected override void Dispose(bool disposing)
