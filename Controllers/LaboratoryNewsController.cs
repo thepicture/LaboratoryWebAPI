@@ -22,7 +22,13 @@ namespace LaboratoryWebAPI.Controllers
         [ResponseType(typeof(List<ResponseNews>))]
         public IHttpActionResult GetLaboratoryNews()
         {
-            return Ok(db.LaboratoryNews.ToList().ConvertAll(l => new ResponseNews(l)));
+            return Ok
+                (
+                    new
+                    {
+                        news = db.LaboratoryNews.ToList().ConvertAll(l => new ResponseNews(l))
+                    }
+                );
         }
 
         // GET : api/news/1
