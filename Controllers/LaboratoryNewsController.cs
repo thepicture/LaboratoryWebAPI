@@ -26,7 +26,7 @@ namespace LaboratoryWebAPI.Controllers
                 (
                     new
                     {
-                        news = db.LaboratoryNews.ToList().ConvertAll(l => new ResponseNews(l))
+                        News = db.LaboratoryNews.ToList().ConvertAll(l => new ResponseNews(l))
                     }
                 );
         }

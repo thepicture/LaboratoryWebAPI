@@ -26,7 +26,7 @@ namespace LaboratoryWebAPI.Controllers
                 (
                     new
                     {
-                        services = db.Service.ToList().ConvertAll(s => new ResponseService(s))
+                        Services = db.Service.ToList().ConvertAll(s => new ResponseService(s))
                     }
                 );
         }
