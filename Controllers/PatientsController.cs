@@ -70,8 +70,8 @@ namespace LaboratoryWebAPI.Controllers
         [HttpPut]
         [Route("api/patient/profile")]
         [ResponseType(typeof(RequestResponsePatient))]
-        public IHttpActionResult GetPatientDataIfLoginIsSuccessful(
-            RequestResponsePatient requestPatient)
+        public IHttpActionResult UpdatePatient(
+            [FromBody] RequestResponsePatient requestPatient)
         {
             Patient dbPatient = db.Patient
                 .FirstOrDefault(p => p.Login == requestPatient.LoginAndPassword.Login
@@ -88,12 +88,14 @@ namespace LaboratoryWebAPI.Controllers
                     ModelState.AddModelError(nameof(requestPatient.Email),
                         "Email is invalid");
                 }
-                if (dbPatient.Password == requestPatient.LoginAndPassword.NewPassword
-                    || requestPatient.LoginAndPassword.Password.Length < 5)
+                if (requestPatient.LoginAndPassword.NewPassword
+                    != requestPatient.LoginAndPassword.Password
+                    || requestPatient.LoginAndPassword
+                    .NewPassword.Length < 5)
                 {
                     ModelState.AddModelError(
                         nameof(requestPatient.LoginAndPassword.Password),
-                        "New password is same as old or is too short");
+                        "New password is same as the old one or is too short");
                 }
                 if (!ModelState.IsValid)
                 {
@@ -101,7 +103,8 @@ namespace LaboratoryWebAPI.Controllers
                 }
                 dbPatient.Phone = requestPatient.PhoneNumber;
                 dbPatient.Email = requestPatient.Email;
-                dbPatient.Password = requestPatient.LoginAndPassword.Password;
+                dbPatient.Password = requestPatient.LoginAndPassword.NewPassword;
+                db.SaveChanges();
                 return Ok(new RequestResponsePatient(dbPatient));
             }
             else

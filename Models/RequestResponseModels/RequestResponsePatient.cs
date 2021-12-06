@@ -6,6 +6,10 @@ namespace LaboratoryWebAPI.Models.RequestResponseModels
 {
     public class RequestResponsePatient
     {
+        public RequestResponsePatient()
+        {
+        }
+
         public RequestResponsePatient(Patient patient)
         {
             FullName = patient.FullName;
