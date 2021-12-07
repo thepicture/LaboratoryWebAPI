@@ -27,7 +27,8 @@ namespace LaboratoryWebAPI.Controllers
             }
             else
             {
-                return BadRequest("Incorrect login and/or password of the patient");
+                return BadRequest("Incorrect login " +
+                    "and/or password of the patient");
             }
         }
 
@@ -39,9 +40,11 @@ namespace LaboratoryWebAPI.Controllers
             RequestResponsePatient requestPatient)
         {
             Patient dbPatient = db.Patient
-                .FirstOrDefault(p => p.Login == requestPatient.LoginAndPassword.Login
-                                     && p.Password ==
-                                     requestPatient.LoginAndPassword.Password);
+                .FirstOrDefault
+                (
+                    p => p.Login.ToLower() == requestPatient
+                    .LoginAndPassword.Login.ToLower()
+                );
             if (dbPatient == null)
             {
                 Patient savedPatient = db.Patient.Add(new Patient
